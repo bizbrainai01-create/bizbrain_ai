@@ -1,0 +1,66 @@
+{% extends "admin/layout.html" %}
+
+{% block title %}Students{% endblock %}
+{% block page_title %}Student Management{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h2>👨‍🎓 Registered Students</h2>
+
+</div>
+
+<table class="admin-table">
+
+    <thead>
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Joined</th>
+            <th>Role</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for user in users %}
+
+        <tr>
+
+            <td>{{ user.id }}</td>
+
+            <td>{{ user.name }}</td>
+
+            <td>{{ user.email }}</td>
+
+            <td>{{ user.created_at.strftime('%d %b %Y') }}</td>
+
+            <td>
+
+                {% if user.is_admin %}
+
+                    <span style="color:green;font-weight:bold;">
+                        Admin
+                    </span>
+
+                {% else %}
+
+                    Student
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

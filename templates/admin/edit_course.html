@@ -1,0 +1,44 @@
+{% extends "admin/layout.html" %}
+
+{% block title %}Edit Course{% endblock %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h1>Edit Course</h1>
+
+    <form method="POST">
+
+        <label>Course Title</label>
+
+        <input
+            type="text"
+            name="title"
+            value="{{ course.title }}"
+            required>
+
+        <br><br>
+
+        <label>Description</label>
+
+        <textarea
+            name="description"
+            rows="6"
+            required>{{ course.description }}</textarea>
+
+        <br><br>
+
+        <button type="submit" class="primary-btn">
+            Update Course
+        </button>
+
+        <a href="{{ url_for('admin_courses') }}" class="secondary-btn">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

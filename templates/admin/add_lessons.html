@@ -1,0 +1,76 @@
+{% extends "admin/layout.html" %}
+
+{% block title %}Add Lesson{% endblock %}
+
+{% block content %}
+
+<h1>Add Lesson</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+    <label>Course</label>
+
+    <select name="course_id" required>
+
+        {% for course in courses %}
+            <option value="{{ course.id }}">
+                {{ course.title }}
+            </option>
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <label>Lesson Number</label>
+
+    <input
+        type="number"
+        name="lesson_number"
+        required>
+
+    <br><br>
+
+    <label>Lesson Title</label>
+
+    <input
+        type="text"
+        name="title"
+        required>
+
+    <br><br>
+
+    <label>Summary</label>
+
+    <textarea
+        name="summary"
+        rows="8"
+        required></textarea>
+
+    <br><br>
+
+    <label>Video (MP4)</label>
+
+    <input
+        type="file"
+        name="video"
+        accept=".mp4">
+
+    <br><br>
+
+    <label>Lecture Notes (PDF)</label>
+
+    <input
+        type="file"
+        name="notes"
+        accept=".pdf">
+
+    <br><br>
+
+    <button type="submit">
+        Upload Lesson
+    </button>
+
+</form>
+
+{% endblock %}

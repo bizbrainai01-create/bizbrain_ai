@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}AI Tutor{% endblock %}
+
+{% block content %}
+
+<div class="chat-page">
+
+    <div class="chat-header">
+
+        <div>
+
+            <h2>🤖 BizBrain AI Tutor</h2>
+
+            <small>Your Business Studies Assistant</small>
+
+        </div>
+
+    </div>
+
+    <div id="chat-box" class="chat-box">
+
+        <div class="bot-message">
+
+            👋 Hello {{ current_user.name }}!
+
+            <br><br>
+
+            Ask me anything about:
+
+            <ul>
+                <li>Marketing</li>
+                <li>Business Law</li>
+                <li>Entrepreneurship</li>
+                <li>Design Thinking</li>
+                <li>Brand Management</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="chat-input">
+
+        <input
+        id="question"
+        placeholder="Ask BizBrain AI anything...">
+
+        <button onclick="sendMessage()">
+
+            Send
+
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+async function sendMessage(){
+
+const input=document.getElementById("question");
+
+const question=input.value.trim();
+
+if(question==="") return;
+
+const chat=document.getElementById("chat-box");
+
+chat.innerHTML+=`
+<div class="user-message">${question}</div>
+`;
+
+input.value="";
+
+const response=await fetch("/ask-ai",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+question:question
+})
+
+});
+
+const data=await response.json();
+
+chat.innerHTML+=`
+<div class="bot-message">${data.answer}</div>
+`;
+
+chat.scrollTop=chat.scrollHeight;
+
+}
+
+</script>
+
+{% endblock %}

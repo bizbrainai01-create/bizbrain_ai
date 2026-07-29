@@ -1,0 +1,23 @@
+.video-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:25px;
+    margin-top:30px;
+}
+
+.video-card{
+    background:#fff;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.video-card video{
+    border-radius:12px;
+    margin-bottom:15px;
+}
+
+.video-card h3{
+    font-size:18px;
+    font-weight:600;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{% block title %}BizBrain AI Admin{% endblock %}</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/admin.css') }}">
+
+</head>
+
+<body>
+
+<div class="admin-wrapper">
+
+    {% include "includes/admin_sidebar.html" %}
+
+    <div class="admin-content">
+
+        <div class="topbar">
+
+            <div>
+
+                <h2>{% block page_title %}Dashboard{% endblock %}</h2>
+
+                <small>
+                    BizBrain AI Administration
+                </small>
+
+            </div>
+
+            <div class="admin-user">
+
+                <i class="bi bi-person-circle"></i>
+
+                <span>
+
+                    {{ current_user.name }}
+
+                </span>
+
+            </div>
+
+        </div>
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

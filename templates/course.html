@@ -1,0 +1,61 @@
+{% extends "admin/layout.html" %}
+
+{% block title %}{{ course.title }}{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    {% include "sidebar.html" %}
+
+    <main class="main">
+
+        <div class="page-header">
+            <h1>{{ course.title }}</h1>
+            <p>{{ course.description }}</p>
+        </div>
+
+        {% if lessons %}
+
+        <div class="lesson-grid">
+
+            {% for lesson in lessons %}
+
+            <div class="lesson-card">
+
+                <h3>
+                    Lesson {{ lesson.lesson_number }}
+                </h3>
+
+                <h2>{{ lesson.title }}</h2>
+
+                <p>{{ lesson.summary[:120] }}...</p>
+
+                <a
+                    class="course-btn"
+                    href="{{ url_for('lesson', lesson_id=lesson.id) }}"
+                >
+                    Open Lesson
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="card">
+
+            <h3>No lessons uploaded yet.</h3>
+
+        </div>
+
+        {% endif %}
+
+    </main>
+
+</div>
+
+{% endblock %}

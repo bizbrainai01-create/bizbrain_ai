@@ -1,0 +1,54 @@
+<aside class="sidebar">
+
+    <div class="logo">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="BizBrain Logo">
+        <h2>BizBrain AI</h2>
+    </div>
+
+    <ul class="menu">
+
+        <li>
+            <a href="{{ url_for('dashboard') }}">
+                <i class="bi bi-house-door-fill"></i>
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('courses') }}">
+                <i class="bi bi-book-fill"></i>
+                Courses
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('notes') }}">
+                <i class="bi bi-journal-text"></i>
+                Smart Notes
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('videos') }}">
+                <i class="bi bi-play-circle-fill"></i>
+                Videos
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('ai_tutor') }}">
+                <i class="bi bi-robot"></i>
+                AI Tutor
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('logout') }}">
+                <i class="bi bi-box-arrow-right"></i>
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</aside>

@@ -1,0 +1,55 @@
+{% extends "admin/layout.html" %}
+
+{% block title %}Smart Notes{% endblock %}
+
+{% block admin_content %}
+
+<div class="dashboard">
+
+    {% include "sidebar.html" %}
+
+    <main class="main">
+
+        <h1>📚 Smart Notes</h1>
+
+        <p>Download lecture notes and revision materials.</p>
+
+        <div class="notes-grid">
+
+            {% for note in notes %}
+
+            <div class="note-card">
+
+                <i class="bi bi-file-earmark-pdf-fill"></i>
+
+                <h3>{{ note.title }}</h3>
+
+                <a
+                href="{{ url_for('static',
+                filename='notes/' + note.filename) }}"
+                class="download-btn"
+                download>
+
+                    Download
+
+                </a>
+
+            </div>
+
+            {% else %}
+
+            <div class="empty">
+
+                <h2>No notes uploaded.</h2>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock %}

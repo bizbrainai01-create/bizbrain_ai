@@ -1,0 +1,85 @@
+{% extends "admin/layout.html" %}
+
+{% block title %}Upload Center{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+{% include "includes/admin_sidebar.html" %}
+
+<main class="main">
+
+<h1>🎥 Upload Center</h1>
+
+{% for lesson in lessons %}
+
+<div class="card">
+
+<h2>{{ lesson.title }}</h2>
+
+<!-- Upload Video -->
+
+<form
+method="POST"
+action="{{ url_for('upload_video') }}"
+enctype="multipart/form-data">
+
+<input
+type="hidden"
+name="lesson_id"
+value="{{ lesson.id }}">
+
+<input
+type="file"
+name="video"
+accept=".mp4"
+required>
+
+<button type="submit">
+
+Upload Video
+
+</button>
+
+</form>
+
+<br>
+
+<!-- Upload Notes -->
+
+<form
+method="POST"
+action="{{ url_for('upload_note') }}"
+enctype="multipart/form-data">
+
+<input
+type="hidden"
+name="lesson_id"
+value="{{ lesson.id }}">
+
+<input
+type="file"
+name="note"
+accept=".pdf,.doc,.docx,.ppt,.pptx"
+required>
+
+<button type="submit">
+
+Upload Notes
+
+</button>
+
+</form>
+
+</div>
+
+<br>
+
+{% endfor %}
+
+</main>
+
+</div>
+
+{% endblock %}

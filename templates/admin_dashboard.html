@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <aside class="sidebar">
+
+        <h2>🛠 BizBrain Admin</h2>
+
+        <ul>
+
+            <li><a href="/admin">Dashboard</a></li>
+
+            <li><a href="/admin/course/new">Add Course</a></li>
+
+            <li><a href="/admin/add-lesson">Add Lesson</a></li>
+
+            <li><a href="#">Upload Notes</a></li>
+
+            <li><a href="#">Upload Videos</a></li>
+
+            <li><a href="#">Generate Quiz</a></li>
+
+            <li><a href="/logout">Logout</a></li>
+
+        </ul>
+
+    </aside>
+
+    <main class="main-content">
+
+        <h1>Welcome Admin 👋</h1>
+
+        <p>Manage all BizBrain AI content here.</p>
+
+        <div class="stats">
+
+            <div class="stat-card">
+                <h2>6</h2>
+                <p>Courses</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>60</h2>
+                <p>Lessons</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>0</h2>
+                <p>Students</p>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

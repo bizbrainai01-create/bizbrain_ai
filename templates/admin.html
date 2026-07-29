@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | BizBrain AI</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Admin Dashboard</h1>
+
+    <p>Manage courses, lessons and videos.</p>
+
+    <div class="grid">
+
+        <div class="card">
+            <h2>📚 Courses</h2>
+            <p>Create and manage Business Studies courses.</p>
+            <button>Add Course</button>
+        </div>
+
+        <div class="card">
+            <h2>📖 Lessons</h2>
+            <p>Add lesson titles and summaries.</p>
+            <button>Add Lesson</button>
+        </div>
+
+        <div class="card">
+            <h2>🎥 Videos</h2>
+            <p>Upload or link lesson videos.</p>
+            <button>Upload Video</button>
+        </div>
+
+        <div class="card">
+            <h2>📝 Quizzes</h2>
+            <p>Create quiz questions for every lesson.</p>
+            <button>Create Quiz</button>
+        </div>
+
+        <div class="card">
+            <h2>👨‍🎓 Students</h2>
+            <p>View registered students.</p>
+            <button>View Students</button>
+        </div>
+
+        <div class="card">
+            <h2>📊 Progress</h2>
+            <p>Track student learning progress.</p>
+            <button>View Progress</button>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

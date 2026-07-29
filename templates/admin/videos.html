@@ -1,0 +1,94 @@
+{% extends "admin/layout.html" %}
+
+{% block title %}Video Management{% endblock %}
+{% block page_title %}Video Management{% endblock %}
+
+{% block content %}
+
+<h2 style="margin-bottom:25px;">
+🎥 Manage Lesson Videos
+</h2>
+
+<div class="video-grid">
+
+{% for lesson in lessons %}
+
+<div class="video-card">
+
+    <h3>{{ lesson.title }}</h3>
+
+    <small>
+        {{ lesson.course.title }}
+    </small>
+
+    <br><br>
+
+    {% if lesson.video_filename %}
+
+        <video controls width="100%" style="border-radius:10px;">
+
+            <source
+            src="{{ url_for('static',
+            filename='videos/' + lesson.video_filename) }}"
+            type="video/mp4">
+
+        </video>
+
+        <br><br>
+
+    {% else %}
+
+        <div class="video-placeholder">
+
+            <i class="bi bi-camera-video"></i>
+
+            <p>No video uploaded</p>
+
+        </div>
+
+    {% endif %}
+
+    <form
+    method="POST"
+    action="{{ url_for('upload_video',
+    lesson_id=lesson.id) }}"
+    enctype="multipart/form-data">
+
+        <input
+        type="file"
+        name="video"
+        accept="video/mp4"
+        required>
+
+        <button class="upload-btn">
+
+            {% if lesson.video_filename %}
+                Replace Video
+            {% else %}
+                Upload Video
+            {% endif %}
+
+        </button>
+
+    </form>
+
+    {% if lesson.video_filename %}
+
+    <a
+    href="{{ url_for('delete_video',
+    lesson_id=lesson.id) }}"
+    class="delete-btn">
+
+        Delete Video
+
+    </a>
+
+    {% endif %}
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

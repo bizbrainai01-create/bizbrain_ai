@@ -1,0 +1,62 @@
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="BizBrain AI">
+
+        <h2>BizBrain AI</h2>
+
+        <span class="admin-label">Admin Panel</span>
+
+    </div>
+
+    <nav>
+
+        <a href="{{ url_for('admin_dashboard') }}">
+            <i class="bi bi-speedometer2"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="{{ url_for('admin_courses') }}">
+            <i class="bi bi-book"></i>
+            <span>Courses</span>
+        </a>
+
+        <a href="{{ url_for('admin_lessons') }}">
+            <i class="bi bi-journal-play"></i>
+            <span>Lessons</span>
+        </a>
+
+        <a href="{{ url_for('admin_videos') }}">
+            <i class="bi bi-camera-video"></i>
+            <span>Videos</span>
+        </a>
+
+        <a href="{{ url_for('admin_notes') }}">
+            <i class="bi bi-file-earmark-text"></i>
+            <span>Notes</span>
+        </a>
+
+        <a href="{{ url_for('admin_quizzes') }}">
+            <i class="bi bi-patch-question"></i>
+            <span>Quizzes</span>
+        </a>
+
+        <a href="{{ url_for('admin_users') }}">
+            <i class="bi bi-people"></i>
+            <span>Students</span>
+        </a>
+
+        <a href="{{ url_for('ai_tutor') }}">
+            <i class="bi bi-robot"></i>
+            <span>AI Tutor</span>
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="logout">
+            <i class="bi bi-box-arrow-left"></i>
+            <span>Logout</span>
+        </a>
+
+    </nav>
+
+</aside>

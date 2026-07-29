@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>{{ lesson.title }}</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <img src="{{ url_for('static', filename='images/logo.png') }}">
+
+            <h2>BizBrain AI</h2>
+
+        </div>
+
+        <ul class="menu">
+
+            <li><a href="/dashboard"><i class="bi bi-house-fill"></i> Dashboard</a></li>
+
+            <li><a href="/courses"><i class="bi bi-book-fill"></i> Courses</a></li>
+
+            <li><a href="/ai-tutor"><i class="bi bi-robot"></i> AI Tutor</a></li>
+
+        </ul>
+
+    </aside>
+
+    <main class="main">
+
+        <h1>{{ lesson.title }}</h1>
+
+        <br>
+
+        <!-- Video -->
+
+{% if lesson.video_filename %}
+
+<video width="100%" controls controlsList="nodownload">
+
+    <source
+        src="{{ url_for('static', filename='videos/' + lesson.video_filename) }}"
+        type="video/mp4">
+
+    Your browser does not support HTML5 video.
+
+</video>
+
+{% else %}
+
+<p>No lesson video uploaded.</p>
+
+{% endif %}
+
+        <br>
+
+        <!-- Summary -->
+
+        <div class="card">
+
+            <h2>📝 AI Summary</h2>
+
+            <br>
+
+            <p>
+
+                {{ lesson.summary }}
+
+            </p>
+
+        </div>
+
+        <br>
+
+        <!-- Resources -->
+
+        <div class="card">
+
+    <h2>📄 Lesson Resources</h2>
+
+    {% if lesson.notes_filename %}
+
+        <a class="course-btn"
+           href="{{ url_for('static', filename='notes/' + lesson.notes_filename) }}"
+           download>
+
+            📥 Download Lesson Notes
+
+        </a>
+
+    {% else %}
+
+        <p>No notes uploaded yet.</p>
+
+    {% endif %}
+
+</div>
+
+        <br>
+
+        <!-- AI Tutor -->
+
+        <div class="card">
+
+            <h2>🤖 Need Help?</h2>
+
+            <p>
+
+                Ask BizBrain AI any question about this lesson.
+
+            </p>
+
+            <a href="/ai-tutor" class="course-btn">
+
+                Open AI Tutor
+
+            </a>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+body{
+background:#f5f7fb;
+font-family:Poppins,sans-serif;
+padding:50px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+}
+
+.lesson-card{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+background:white;
+
+padding:25px;
+
+margin:20px 0;
+
+border-radius:15px;
+
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+}
+
+.lesson-card button{
+
+background:#2563eb;
+
+color:white;
+
+border:none;
+
+padding:12px 20px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}

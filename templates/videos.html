@@ -1,0 +1,52 @@
+{% extends "admin/layout.html" %}html" %}html" %}
+
+{% block title %}Videos | BizBrain AI{% endblock %}
+
+{% block admin_content %}
+
+<div class="dashboard">
+
+    {% include "sidebar.html" %}
+
+    <main class="main">
+
+        <h1>🎥 Video Library</h1>
+
+        <p>
+            Watch lecture videos uploaded by your lecturer.
+        </p>
+
+        <div class="video-grid">
+
+            {% for video in videos %}
+
+            <div class="video-card">
+
+                <video controls width="100%">
+
+                    <source src="{{ url_for('static',
+                    filename='videos/' + video.filename) }}">
+
+                </video>
+
+                <h3>{{ video.title }}</h3>
+
+            </div>
+
+            {% else %}
+
+            <div class="empty">
+
+                <h2>No videos uploaded yet.</h2>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock %}

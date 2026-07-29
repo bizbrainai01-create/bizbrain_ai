@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>{{ lesson }}</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/study.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>{{ course }}</h1>
+
+<h2>Lesson {{ lesson_number }}</h2>
+
+<h3>{{ lesson }}</h3>
+
+<div class="video">
+
+<h2>🎥 Video Lesson</h2>
+
+<iframe width="100%"
+height="450"
+src="https://www.youtube.com/embed/h95m0V8mQ7A"
+allowfullscreen>
+</iframe>
+
+</div>
+
+<div class="summary">
+
+<h2>📚 Summary</h2>
+
+<p>
+
+This lesson explains the key concepts of
+{{ lesson }}.
+
+Here you will later display the summarized
+lecturer notes generated for students.
+
+</p>
+
+</div>
+
+<div class="key-points">
+
+<h2>⭐ Key Points</h2>
+
+<ul>
+
+<li>Main concept</li>
+
+<li>Business application</li>
+
+<li>Real-world example</li>
+
+<li>Exam tips</li>
+
+</ul>
+
+</div>
+
+<div class="buttons">
+
+<a href="/ai-tutor">
+
+🤖 Ask AI Tutor
+
+</a>
+
+<a href="#">
+
+🧠 Take Quiz
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
