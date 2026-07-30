@@ -927,6 +927,23 @@ def admin_settings():
     return render_template("admin/settings.html")
 with app.app_context():
     db.create_all()
+with app.app_context():
+    db.create_all()
 
+    admin = User.query.filter_by(email="bizbrainai01@gmail.com").first()
+
+    if not admin:
+        admin = User(
+            name="BizBrain Admin",
+            email="bizbrainai01@gmail.com",
+            is_admin=True
+        )
+
+        admin.set_password("Admin@123")
+
+        db.session.add(admin)
+        db.session.commit()
+
+        print("✅ Admin created")
 if __name__ == "__main__":
     app.run(debug=True)
