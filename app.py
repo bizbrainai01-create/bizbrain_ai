@@ -927,8 +927,6 @@ def admin_settings():
     return render_template("admin/settings.html")
 with app.app_context():
     db.create_all()
-with app.app_context():
-    db.create_all()
 
     admin = User.query.filter_by(email="bizbrainai01@gmail.com").first()
 
