@@ -61,12 +61,36 @@ app.config["SECRET_KEY"] = os.getenv(
     "bizbrain-secret"
 )
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///bizbrain.db"
+import os
+
+database_url = os.getenv("DATABASE_URL")
+
+if database_url:
+    # Render PostgreSQL
+    if database_url.startswith("postgres://"):
+        database_url = database_url.replace(
+            "postgres://",
+            "postgresql://",
+            1
+        )
+
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+
+else:
+    # Local SQLite
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///bizbrain.db"
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Upload folders
 app.config["VIDEO_FOLDER"] = os.path.join(BASE_DIR, "static", "videos")
-app.config["NOTES_FOLDER"] = os.path.join(BASE_DIR, "static", "notes")
+app.config["NOTES_FOLDER"] = os.path.join(
+    app.root_path,
+    "static",
+    "notes"
+)
+
+os.makedirs(app.config["NOTES_FOLDER"], exist_ok=True)
 
 # Maximum upload size (500 MB)
 app.config["MAX_CONTENT_LENGTH"] = 500 * 1024 * 1024
@@ -784,35 +808,36 @@ def admin_videos():
         page_title="Video Management",
     )
 
-@app.route("/admin/video/<int:lesson_id>/upload", methods=["POST"])
+@app.route("/admin/notes/<int:lesson_id>/upload", methods=["POST"])
 @login_required
-def upload_video(lesson_id):
+def upload_notes(lesson_id):
 
     if not current_user.is_admin:
         return redirect(url_for("dashboard"))
 
     lesson = Lesson.query.get_or_404(lesson_id)
 
-    video = request.files.get("video")
+    pdf = request.files.get("notes")
 
-    if video and video.filename:
+    if pdf and pdf.filename.endswith(".pdf"):
 
-        filename = secure_filename(video.filename)
+        filename = secure_filename(pdf.filename)
 
-        video.save(
+        pdf.save(
             os.path.join(
-                app.config["VIDEO_FOLDER"],
+                app.config["NOTES_FOLDER"],
                 filename
             )
         )
 
-        lesson.video_filename = filename
+        lesson.notes_filename = filename
 
         db.session.commit()
 
-        flash("Video uploaded successfully!", "success")
+        flash("Notes uploaded successfully!", "success")
 
-    return redirect(url_for("admin_videos"))
+    return redirect(url_for("admin_notes"))
+
 
 @app.route("/admin/video/<int:lesson_id>/delete")
 @login_required
