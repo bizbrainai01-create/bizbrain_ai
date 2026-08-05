@@ -101,6 +101,7 @@ import os
 from werkzeug.utils import secure_filename
 # Maximum upload size (500 MB)
 app.config["MAX_CONTENT_LENGTH"] = 500 * 1024 * 1024
+app.config["PROPAGATE_EXCEPTIONS"] = True
 ALLOWED_VIDEO_EXTENSIONS = {"mp4"}
 ALLOWED_NOTE_EXTENSIONS = {"pdf", "doc", "docx", "ppt", "pptx"}
 
