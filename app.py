@@ -83,15 +83,22 @@ else:
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Upload folders
-app.config["VIDEO_FOLDER"] = os.path.join(BASE_DIR, "static", "videos")
+app.config["VIDEO_FOLDER"] = os.path.join(
+    app.root_path,
+    "static",
+    "videos"
+)
+
 app.config["NOTES_FOLDER"] = os.path.join(
     app.root_path,
     "static",
     "notes"
 )
 
+os.makedirs(app.config["VIDEO_FOLDER"], exist_ok=True)
 os.makedirs(app.config["NOTES_FOLDER"], exist_ok=True)
-
+import os
+from werkzeug.utils import secure_filename
 # Maximum upload size (500 MB)
 app.config["MAX_CONTENT_LENGTH"] = 500 * 1024 * 1024
 ALLOWED_VIDEO_EXTENSIONS = {"mp4"}
@@ -408,6 +415,35 @@ def delete_lesson(lesson_id):
 
     return redirect(url_for("admin_lessons"))
 
+@app.route("/admin/video/<int:lesson_id>/upload", methods=["POST"])
+@login_required
+def upload_video(lesson_id):
+
+    if not current_user.is_admin:
+        return redirect(url_for("dashboard"))
+
+    lesson = Lesson.query.get_or_404(lesson_id)
+
+    video = request.files.get("video")
+
+    if video and video.filename:
+
+        filename = secure_filename(video.filename)
+
+        video.save(
+            os.path.join(
+                app.config["VIDEO_FOLDER"],
+                filename
+            )
+        )
+
+        lesson.video_filename = filename
+
+        db.session.commit()
+
+        flash("Video uploaded successfully!", "success")
+
+    return redirect(url_for("admin_videos"))
 
 # ==========================================
 # STUDENT DASHBOARD
@@ -421,9 +457,13 @@ def dashboard():
 
     total_lessons = Lesson.query.count()
 
-    total_notes = Note.query.count()
+    total_notes = Lesson.query.filter(
+    Lesson.notes_filename.isnot(None)
+).count()
 
-    total_videos = Video.query.count()
+    total_videos = Lesson.query.filter(
+    Lesson.video_filename.isnot(None)
+).count()
 
     return render_template(
         "dashboard.html",
@@ -451,7 +491,9 @@ def admin_dashboard():
         total_users=User.query.count(),
         total_courses=Course.query.count(),
         total_lessons=Lesson.query.count(),
-        total_videos=Video.query.count()
+        total_videos=Lesson.query.filter(
+    Lesson.video_filename.isnot(None)
+).count()
     )
 
 
@@ -500,8 +542,14 @@ def course(course_id):
 @app.route("/notes")
 @login_required
 def notes():
-    notes = Note.query.all()
-    return render_template("notes.html", notes=notes)
+    lessons = Lesson.query.filter(
+        Lesson.notes_filename.isnot(None)
+    ).all()
+
+    return render_template(
+        "notes.html",
+        lessons=lessons
+    )
 
 
 # ==========================
@@ -511,12 +559,13 @@ def notes():
 @app.route("/videos")
 @login_required
 def videos():
-
-    videos = Video.query.all()
+    lessons = Lesson.query.filter(
+        Lesson.video_filename.isnot(None)
+    ).all()
 
     return render_template(
         "videos.html",
-        videos=videos
+        lessons=lessons
     )
 
 
