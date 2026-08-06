@@ -1,20 +1,77 @@
 {% extends "admin/layout.html" %}
 
-{% block title %}Notes{% endblock %}
+{% block title %}Notes Management{% endblock %}
+{% block page_title %}Notes Management{% endblock %}
 
-{% block admin_content %}
+{% block content %}
 
-<div class="dashboard">
+<h2 style="margin-bottom:25px;">
+📝 Upload Lesson Notes
+</h2>
 
-    {% include "includes/admin_sidebar.html" %}
+<div class="video-grid">
 
-    <main class="main">
+{% for lesson in lessons %}
 
-        <h1>📝 Notes Management</h1>
+<div class="video-card">
 
-        <p>This page is under construction.</p>
+    <h3>{{ lesson.title }}</h3>
 
-    </main>
+    <small>{{ lesson.course.title }}</small>
+
+    <br><br>
+
+    {% if lesson.notes_filename %}
+
+        <a
+            href="{{ url_for('static', filename='notes/' + lesson.notes_filename) }}"
+            class="upload-btn"
+            target="_blank">
+
+            📄 View PDF
+
+        </a>
+
+        <br><br>
+
+    {% else %}
+
+        <div class="video-placeholder">
+
+            <i class="bi bi-file-earmark-pdf"></i>
+
+            <p>No PDF uploaded</p>
+
+        </div>
+
+    {% endif %}
+
+    <form
+        action="{{ url_for('upload_notes', lesson_id=lesson.id) }}"
+        method="POST"
+        enctype="multipart/form-data">
+
+        <input
+            type="file"
+            name="notes"
+            accept=".pdf"
+            required>
+
+        <button type="submit" class="upload-btn">
+
+            {% if lesson.notes_filename %}
+                Replace PDF
+            {% else %}
+                Upload PDF
+            {% endif %}
+
+        </button>
+
+    </form>
+
+</div>
+
+{% endfor %}
 
 </div>
 
